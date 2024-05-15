@@ -14,6 +14,7 @@ import java.util.Set;
 @Configuration
 public class AdminConfig implements CommandLineRunner {
 
+    private static final String DEFAULT_ADMIN = "admin";
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -30,12 +31,12 @@ public class AdminConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         var roleAdmin = roleRepository.findByName(Role.Values.ADMIN.name());
-        var userAdmin = userRepository.findByUsername("ADMIN");
+        var userAdmin = userRepository.findByUsername(DEFAULT_ADMIN);
         userAdmin.ifPresentOrElse(
                 user -> System.out.println("admin já existe"),
                 () -> {
                     var user = new User();
-                    user.setUsername("ADMIN");
+                    user.setUsername(DEFAULT_ADMIN);
                     user.setPassword(passwordEncoder.encode("123"));
                     user.setRoles(Set.of(roleAdmin));
                     userRepository.save(user);

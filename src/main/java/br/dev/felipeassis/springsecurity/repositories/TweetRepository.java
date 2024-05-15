@@ -1,12 +1,11 @@
 package br.dev.felipeassis.springsecurity.repositories;
 
-import br.dev.felipeassis.springsecurity.entities.Role;
 import br.dev.felipeassis.springsecurity.entities.Tweet;
+import org.hibernate.query.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface TweetRepository extends JpaRepository<Tweet, UUID>  {
+public interface TweetRepository extends JpaRepository<Tweet, Long>  {
+
 }

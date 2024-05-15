@@ -1,6 +1,8 @@
 package br.dev.felipeassis.springsecurity.entities;
 
+import br.dev.felipeassis.springsecurity.controller.dto.LoginRequest;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.processing.Generated;
 import java.util.Set;
@@ -55,6 +57,10 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, BCryptPasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 
 }
